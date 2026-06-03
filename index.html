@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hassan Hamed — Senior Accountant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d0d;
+  --paper: #f5f0e8;
+  --paper2: #ede7d9;
+  --gold: #b8933f;
+  --gold2: #d4aa5a;
+  --muted: #7a7060;
+  --white: #fdfaf5;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: .5;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 60px;
+  background: rgba(245,240,232,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,147,63,0.15);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  font-size: 12px; font-weight: 500;
+  text-decoration: none; color: var(--muted);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 140px 60px 80px 60px;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 40px; height: 1px; background: var(--gold);
+}
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6vw, 80px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.hero-name em {
+  font-style: normal;
+  color: var(--gold);
+  display: block;
+}
+.hero-title {
+  font-size: 15px; font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 40px;
+  line-height: 1.8;
+  max-width: 420px;
+}
+.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: var(--paper);
+  padding: 14px 28px; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; border: 2px solid var(--ink);
+  transition: all .25s;
+}
+.btn-primary:hover { background: var(--gold); border-color: var(--gold); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--ink);
+  padding: 14px 28px; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; border: 2px solid var(--ink);
+  transition: all .25s;
+}
+.btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+.hero-right {
+  position: relative; overflow: hidden;
+  background: var(--ink);
+}
+.hero-right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: 
+    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(184,147,63,0.04) 60px, rgba(184,147,63,0.04) 61px),
+    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(184,147,63,0.04) 60px, rgba(184,147,63,0.04) 61px);
+}
+.hero-big-text {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 220px; font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  line-height: 1; right: -20px; top: 50%;
+  transform: translateY(-50%);
+  letter-spacing: -0.05em;
+  user-select: none;
+}
+.hero-stats {
+  position: absolute; bottom: 60px; left: 50px; right: 50px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: rgba(184,147,63,0.2);
+}
+.stat-box {
+  background: rgba(13,13,13,0.95);
+  padding: 28px 24px;
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px; font-weight: 900;
+  color: var(--gold2);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px; font-weight: 500;
+  color: rgba(245,240,232,0.45);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-top: 6px;
+}
+.hero-center-badge {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px; height: 160px;
+  border: 1px solid rgba(184,147,63,0.3);
+  border-radius: 50%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.hero-center-badge::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px solid rgba(184,147,63,0.15);
+  border-radius: 50%;
+}
+.badge-years {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 900; color: var(--gold2);
+  line-height: 1;
+}
+.badge-label {
+  font-size: 10px; font-weight: 500;
+  color: rgba(245,240,232,0.5);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* SECTIONS */
+section { padding: 100px 60px; }
+.section-tag {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700; line-height: 1.1;
+  margin-bottom: 60px;
+}
+
+/* ABOUT */
+#about { background: var(--white); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.about-text p {
+  font-size: 16px; line-height: 1.9;
+  color: #3a3530; margin-bottom: 20px;
+}
+.about-highlight {
+  border-right: 3px solid var(--gold);
+  padding-right: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-style: italic;
+  color: var(--ink); line-height: 1.6;
+  margin: 32px 0;
+}
+.about-details { display: flex; flex-direction: column; gap: 0; }
+.detail-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--paper2);
+}
+.detail-key {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.detail-val { font-size: 14px; font-weight: 400; color: var(--ink); }
+.contact-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 0; border-bottom: 1px solid var(--paper2);
+  text-decoration: none; color: var(--ink);
+  font-size: 14px; transition: color .2s;
+}
+.contact-item:hover { color: var(--gold); }
+.contact-icon {
+  width: 36px; height: 36px;
+  background: var(--paper2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+
+/* EXPERIENCE */
+#experience { background: var(--paper); }
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--paper2);
+  position: relative;
+}
+.exp-item::before {
+  content: '';
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 0;
+  background: var(--gold);
+  transition: width .3s;
+}
+.exp-item:hover::before { width: 3px; }
+.exp-meta { padding-top: 4px; }
+.exp-period {
+  font-size: 12px; font-weight: 500;
+  color: var(--gold); letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.exp-company {
+  font-size: 13px; color: var(--muted);
+  line-height: 1.5; margin-bottom: 6px;
+}
+.exp-location {
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.exp-content {}
+.exp-role {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700;
+  margin-bottom: 16px; line-height: 1.2;
+}
+.exp-dept {
+  display: inline-block;
+  background: var(--ink); color: var(--paper);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; margin-bottom: 20px;
+}
+.exp-phases { display: flex; flex-direction: column; gap: 16px; }
+.exp-phase {
+  display: grid; grid-template-columns: 100px 1fr;
+  gap: 16px; align-items: start;
+}
+.phase-year {
+  font-size: 11px; font-weight: 500;
+  color: var(--gold); padding-top: 2px;
+  letter-spacing: 0.05em;
+}
+.phase-desc {
+  font-size: 14px; line-height: 1.7; color: #3a3530;
+}
+
+/* SKILLS */
+#skills { background: var(--ink); color: var(--paper); }
+#skills .section-title { color: var(--paper); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(184,147,63,0.15);
+}
+.skill-box {
+  background: #111;
+  padding: 36px 32px;
+  transition: background .2s;
+}
+.skill-box:hover { background: #161612; }
+.skill-icon { font-size: 28px; margin-bottom: 16px; }
+.skill-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--paper); margin-bottom: 10px;
+}
+.skill-desc { font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.7; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.skill-tag {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid rgba(184,147,63,0.3);
+  color: var(--gold2);
+  padding: 3px 10px;
+}
+
+/* EDUCATION */
+#education { background: var(--white); }
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.edu-card {
+  border: 1px solid var(--paper2);
+  padding: 36px;
+  position: relative; overflow: hidden;
+  transition: border-color .2s;
+}
+.edu-card:hover { border-color: var(--gold); }
+.edu-card::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 80px; height: 80px;
+  background: var(--paper2);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  transition: background .2s;
+}
+.edu-card:hover::before { background: rgba(184,147,63,0.15); }
+.edu-degree {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  margin-bottom: 8px; line-height: 1.3;
+}
+.edu-inst { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+.edu-year { font-size: 12px; color: var(--gold); font-weight: 500; letter-spacing: 0.05em; }
+.edu-note {
+  margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid var(--paper2);
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+}
+
+/* CONTACT */
+#contact {
+  background: var(--ink); color: var(--paper);
+  text-align: center;
+}
+#contact .section-title { color: var(--paper); }
+.contact-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: rgba(184,147,63,0.15);
+  max-width: 700px; margin: 0 auto 60px;
+}
+.contact-box {
+  background: #111;
+  padding: 36px 24px; text-align: center;
+  text-decoration: none; color: var(--paper);
+  display: block; transition: background .2s;
+}
+.contact-box:hover { background: #1a1a14; }
+.contact-box-icon { font-size: 28px; margin-bottom: 12px; }
+.contact-box-label {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.contact-box-val { font-size: 13px; color: rgba(245,240,232,0.6); }
+
+footer {
+  text-align: center;
+  padding: 30px 60px;
+  background: #0a0a0a;
+  font-size: 12px; color: rgba(245,240,232,0.25);
+  letter-spacing: 0.08em;
+}
+
+/* Animations */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { height: 300px; }
+  .hero-left { padding: 120px 24px 60px; }
+  section { padding: 70px 24px; }
+  .about-grid, .edu-grid { grid-template-columns: 1fr; gap: 40px; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 12px; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hassan <span>Hamed</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Senior Accountant</div>
+    <h1 class="hero-name">
+      Hassan<br>
+      <em>Hamed</em>
+    </h1>
+    <p class="hero-title">
+      Financial specialist with deep expertise in construction accounting — marine works, road projects, and concrete operations. Trusted by one of Egypt's largest contractors.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get In Touch</a>
+      <a href="#experience" class="btn-outline">View Experience</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-big-text">CPA</div>
+    <div class="hero-center-badge">
+      <div class="badge-years">10+</div>
+      <div class="badge-label">Years of<br>Experience</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Departments</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Projects Managed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">EGY</div>
+        <div class="stat-label">& International</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">B.Com</div>
+        <div class="stat-label">Cairo University</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">About Me</div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <h2 class="section-title">Financial Precision<br>at Scale</h2>
+      <p>Highly accomplished Senior Accountant with over a decade of experience in construction accounting, spanning marine works, road infrastructure, and concrete operations.</p>
+      <blockquote class="about-highlight">
+        "Proven expertise in financial reporting, cost control, tax compliance, and revenue optimization — delivering results across Egypt and international projects."
+      </blockquote>
+      <p>Currently serving at The Arab Contractors — Osman Ahmed Osman & Co., one of the most prestigious construction firms in the Middle East, managing complex multi-sector financial operations.</p>
+    </div>
+    <div class="about-details fade-in">
+      <div class="detail-row">
+        <span class="detail-key">Location</span>
+        <span class="detail-val">Giza, Egypt</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Current Role</span>
+        <span class="detail-val">Senior Accountant</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Current Employer</span>
+        <span class="detail-val">Arab Contractors</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Specialization</span>
+        <span class="detail-val">Construction Accounting</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Availability</span>
+        <span class="detail-val">Open to Opportunities</span>
+      </div>
+      <a href="mailto:mr.hassanabdallah@gmail.com" class="contact-item">
+        <div class="contact-icon">✉️</div>
+        mr.hassanabdallah@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-tag">Career Journey</div>
+  <h2 class="section-title">Professional<br>Experience</h2>
+
+  <div class="exp-item fade-in">
+    <div class="exp-meta">
+      <div class="exp-period">Feb 2014 – Present</div>
+      <div class="exp-company">The Arab Contractors<br>Osman Ahmed Osman & Co.</div>
+      <div class="exp-location">Cairo, Egypt</div>
+    </div>
+    <div class="exp-content">
+      <div class="exp-role">Senior Accountant</div>
+      <div class="exp-phases">
+        <div class="exp-phase">
+          <div class="phase-year">2014–2016</div>
+          <div class="phase-desc"><strong>Marine Construction Dept.</strong> — Subcontractors Accounting. Managed subcontractor accounts ensuring accurate contract implementation and timely payment clearances.</div>
+        </div>
+        <div class="exp-phase">
+          <div class="phase-year">2016–2018</div>
+          <div class="phase-desc"><strong>Branches & Overseas Projects Dept.</strong> — Settlements & Financial Records. Handled financial settlements and managed project records for international operations.</div>
+        </div>
+        <div class="exp-phase">
+          <div class="phase-year">2018–2022</div>
+          <div class="phase-desc"><strong>Highway Department</strong> — Subcontractors, Suppliers, Financial Settlements & Taxes. Reconciled supplier invoices, oversaw settlements, and ensured full tax compliance.</div>
+        </div>
+        <div class="exp-phase">
+          <div class="phase-year">2022–Present</div>
+          <div class="phase-desc"><strong>Ready-Mix Concrete Dept.</strong> — Revenue, Insurance & Cement Supply. Overseeing revenue tracking, insurance accounts, financial settlements, and cement procurement coordination.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-item fade-in">
+    <div class="exp-meta">
+      <div class="exp-period">May 2012 – Dec 2013</div>
+      <div class="exp-company">Universal Service Group</div>
+      <div class="exp-location">Cairo, Egypt</div>
+    </div>
+    <div class="exp-content">
+      <div class="exp-role">Accountant</div>
+      <div class="exp-phases">
+        <div class="exp-phase">
+          <div class="phase-year">2012–2013</div>
+          <div class="phase-desc">Managed general accounting tasks including financial reporting and transaction recording. Built foundational expertise in accounting operations and financial documentation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag">Expertise</div>
+  <h2 class="section-title" style="color:var(--paper)">Core<br>Competencies</h2>
+  <div class="skills-grid">
+    <div class="skill-box fade-in">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Financial Reporting</div>
+      <div class="skill-desc">Comprehensive financial statements, P&L analysis, and balance sheet management for large-scale construction projects.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">P&L</span>
+        <span class="skill-tag">Balance Sheet</span>
+        <span class="skill-tag">Statements</span>
+      </div>
+    </div>
+    <div class="skill-box fade-in">
+      <div class="skill-icon">💼</div>
+      <div class="skill-name">Accounts Payable</div>
+      <div class="skill-desc">End-to-end management of subcontractor and supplier accounts, invoice reconciliation, and payment processing.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Reconciliation</span>
+        <span class="skill-tag">Invoicing</span>
+        <span class="skill-tag">Payments</span>
+      </div>
+    </div>
+    <div class="skill-box fade-in">
+      <div class="skill-icon">📋</div>
+      <div class="skill-name">Tax Compliance</div>
+      <div class="skill-desc">Full tax management and regulatory compliance across diverse construction sectors including roads, marine, and concrete.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Tax Filing</span>
+        <span class="skill-tag">Compliance</span>
+        <span class="skill-tag">Regulations</span>
+      </div>
+    </div>
+    <div class="skill-box fade-in">
+      <div class="skill-icon">💰</div>
+      <div class="skill-name">Cost Control</div>
+      <div class="skill-desc">Strategic cost management and revenue optimization for multi-million pound construction operations.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Budgeting</span>
+        <span class="skill-tag">Forecasting</span>
+        <span class="skill-tag">Optimization</span>
+      </div>
+    </div>
+    <div class="skill-box fade-in">
+      <div class="skill-icon">🌍</div>
+      <div class="skill-name">International Projects</div>
+      <div class="skill-desc">Experience managing financial records for overseas and cross-border construction projects with multi-currency transactions.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Overseas</span>
+        <span class="skill-tag">Multi-currency</span>
+        <span class="skill-tag">Settlements</span>
+      </div>
+    </div>
+    <div class="skill-box fade-in">
+      <div class="skill-icon">📑</div>
+      <div class="skill-name">Contract Management</div>
+      <div class="skill-desc">Accurate implementation of subcontractor contracts, clearances, and financial settlements within strict timelines.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Contracts</span>
+        <span class="skill-tag">Clearances</span>
+        <span class="skill-tag">Settlements</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-tag">Academic Background</div>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-grid">
+    <div class="edu-card fade-in">
+      <div class="edu-degree">Bachelor of Commerce<br>Accounting Department</div>
+      <div class="edu-inst">Cairo University, Egypt</div>
+      <div class="edu-year">Graduated 2012</div>
+      <div class="edu-note">Strong academic foundation in accounting principles, financial analysis, and business management that underpins over a decade of professional practice.</div>
+    </div>
+    <div class="edu-card fade-in">
+      <div class="edu-degree">Construction Accounting<br>Specialist</div>
+      <div class="edu-inst">On-the-Job Mastery</div>
+      <div class="edu-year">2014 – Present</div>
+      <div class="edu-note">Deep practical expertise across marine, highway, and concrete construction sectors — managing complex financial operations at one of the Middle East's premier contractors.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2 class="section-title">Let's Connect</h2>
+  <div class="contact-grid">
+    <a href="mailto:mr.hassanabdallah@gmail.com" class="contact-box">
+      <div class="contact-box-icon">✉️</div>
+      <div class="contact-box-label">Email</div>
+      <div class="contact-box-val">mr.hassanabdallah@gmail.com</div>
+    </a>
+    <div class="contact-box">
+      <div class="contact-box-icon">📍</div>
+      <div class="contact-box-label">Location</div>
+      <div class="contact-box-val">Giza, Egypt</div>
+    </div>
+    <div class="contact-box">
+      <div class="contact-box-icon">💼</div>
+      <div class="contact-box-label">Status</div>
+      <div class="contact-box-val">Open to Opportunities</div>
+    </div>
+  </div>
+  <a href="mailto:mr.hassanabdallah@gmail.com" class="btn-primary" style="display:inline-flex;">Send a Message →</a>
+</section>
+
+<footer>© 2026 Hassan Hamed Hassan — Senior Accountant · Giza, Egypt</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
